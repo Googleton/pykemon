@@ -1,0 +1,13 @@
+{
+	"name":"Poussifeu",
+	"pos_front_x" : 8,
+	"pos_front_y": 96,
+	"pos_inventory_x": 296,
+	"pos_inventory_y": 96,
+	"health": 50,
+	"attacks":[
+	{
+		"name":"Charge"
+	}
+	]
+}

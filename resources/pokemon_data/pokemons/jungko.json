@@ -1,0 +1,13 @@
+{
+	"name":"Jungko",
+	"pos_front_x" : 664,
+	"pos_front_y": 24,
+	"pos_inventory_x": 952,
+	"pos_inventory_y": 24,
+	"health": 50,
+	"attacks":[
+	{
+		"name":"Charge"
+	}
+	]
+}

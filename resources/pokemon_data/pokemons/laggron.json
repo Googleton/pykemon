@@ -1,0 +1,13 @@
+{
+	"name":"Laggron",
+	"pos_front_x" : 664,
+	"pos_front_y": 168,
+	"pos_inventory_x": 952,
+	"pos_inventory_y": 168,
+	"health": 50,
+	"attacks":[
+	{
+		"name":"Charge"
+	}
+	]
+}

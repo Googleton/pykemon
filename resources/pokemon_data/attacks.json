@@ -1,0 +1,16 @@
+{
+	"attacks":[
+	{
+		"name":"Charge",
+		"base_damage":15,
+		"critical_chance":10,
+		"type":"normal"
+	},
+	{
+		"name":"Frappe",
+		"base_damage":15,
+		"critical_chance":10,
+		"type":"normal"
+	}
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"name":"Arcko",
+	"pos_front_x" : 8,
+	"pos_front_y": 24,
+	"pos_inventory_x": 296,
+	"pos_inventory_y": 24,
+	"health": 50,
+	"attacks":[
+	{
+		"name":"Charge"
+	}
+	]
+}

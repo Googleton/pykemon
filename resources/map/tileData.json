@@ -1,0 +1,58 @@
+	{
+"teleporters":[
+	{
+		"x":11,
+		"y":36,
+		"teleX":46,
+		"teleY":65
+	},
+	{
+		"x":46,
+		"y":64,
+		"teleX":11,
+		"teleY":37
+	}
+],
+"npc":[
+	{
+		"x":14,
+		"y":14,
+		"texture":"npc.png",
+		"dialog":"Bonjour ! Ce texte est généré grâce a un .json !",
+		"hasPath":1,
+		"name":"Voisin",
+		"type":"bystander",
+		"path":[
+		{
+			"x":14,
+			"y":14
+		},
+		{
+			"x":20,
+			"y":14
+		}
+		]
+	},
+	{
+		"x":3,
+		"y":3,
+		"texture":"npc.png",
+		"name":"Dresseur test",
+		"dialog":"Bonjour ! Je suis le NPC de debug !!",
+		"type":"trainer",
+		"hasPath":0,
+		"path":[
+		],
+		"team":[
+		{
+			"level":5,
+			"name":"Gobou"
+		},
+		{
+			"level":3,
+			"name":"Arcko"
+		}
+		]
+	}
+	]
+}

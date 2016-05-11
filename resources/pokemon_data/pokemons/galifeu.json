@@ -1,0 +1,13 @@
+{
+	"name":"Galifeu",
+	"pos_front_x" : 336,
+	"pos_front_y": 96,
+	"pos_inventory_x": 624,
+	"pos_inventory_y": 96,
+	"health": 50,
+	"attacks":[
+	{
+		"name":"Charge"
+	}
+	]
+}

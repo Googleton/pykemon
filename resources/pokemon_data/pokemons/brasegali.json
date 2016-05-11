@@ -1,0 +1,13 @@
+{
+	"name":"Brasegali",
+	"pos_front_x" : 664,
+	"pos_front_y": 96,
+	"pos_inventory_x": 952,
+	"pos_inventory_y": 96,
+	"health": 50,
+	"attacks":[
+	{
+		"name":"Charge"
+	}
+	]
+}
