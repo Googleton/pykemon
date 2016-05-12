@@ -1,31 +1,83 @@
 	{
 "teleporters":[
 	{
-		"x":11,
-		"y":36,
-		"teleX":46,
-		"teleY":65
+		"x":18,
+		"y":85,
+		"teleX":10,
+		"teleY":19
 	},
 	{
-		"x":46,
-		"y":64,
-		"teleX":11,
-		"teleY":37
+		"x":10,
+		"y":20,
+		"teleX":18,
+		"teleY":86
+	},
+	{
+		"x":11,
+		"y":20,
+		"teleX":18,
+		"teleY":86
+	},
+	{
+		"x":16,
+		"y":77,
+		"teleX":28,
+		"teleY":19
+	},
+	{
+		"x":28,
+		"y":20,
+		"teleX":16,
+		"teleY":78
+	},
+	{
+		"x":29,
+		"y":20,
+		"teleX":16,
+		"teleY":78
+	},
+	{
+		"x":28,
+		"y":13,
+		"teleX":28,
+		"teleY":2
+	},
+	{
+		"x":28,
+		"y":1,
+		"teleX":28,
+		"teleY":14
 	}
 ],
 "npc":[
 	{
-		"x":14,
-		"y":14,
-		"texture":"npc.png",
-		"dialog":"Bonjour ! Ce texte est généré grâce a un .json !",
+		"x":12,
+		"y":15,
+		"texture":"npc_4.png",
+		"trainer":"trainer_3.png",
+		"dialog":"Bonjour ! Tu as enfin ton premier pokemon!",
+		"hasMulti":1,
+		"dialog_multi":[
+			{
+				"line":"Bonjour! Tu as enfin ton premier Pokemon!"
+			},
+			{
+				"line":"Le prof. n'est pas la aujourd'hui ..."
+			},
+			{
+				"line":"Je crois qu'il est parti au nord."
+			},
+			{
+				"line":"Tu devrais aller le chercher!"
+			}
+		],
 		"hasPath":1,
-		"name":"Voisin",
+		"name":"Chercheur",
 		"type":"bystander",
 		"path":[
 		{
-			"x":14,
-			"y":14
+			"x":12,
+			"y":15
 		},
 		{
 			"x":20,
@@ -34,12 +86,35 @@
 		]
 	},
 	{
-		"x":3,
-		"y":3,
-		"texture":"npc.png",
+		"x":27,
+		"y":15,
+		"texture":"npc_5.png",
+		"trainer":"trainer_3.png",
+		"dialog":"Hey! Tu devrais aller voir au labo, le prof. te cherche...",
+		"hasMulti":0,
+		"hasPath":1,
+		"name":"Maman",
+		"type":"bystander",
+		"path":[
+		{
+			"x":12,
+			"y":15
+		},
+		{
+			"x":20,
+			"y":14
+		}
+		]
+	},
+	{
+		"x":60,
+		"y":60,
+		"texture":"npc_3.png",
+		"trainer":"trainer_3.png",
 		"name":"Dresseur test",
-		"dialog":"Bonjour ! Je suis le NPC de debug !!",
+		"dialog":"Si vous me parlez ... comment êtes vous arrivé ici ?!",
 		"type":"trainer",
+		"hasMulti":0,
 		"hasPath":0,
 		"path":[
 		],
@@ -51,6 +126,25 @@
 		{
 			"level":3,
 			"name":"Arcko"
+		}
+		]
+	},
+	{
+		"x":16,
+		"y":52,
+		"texture":"npc_2.png",
+		"trainer":"trainer_2.png",
+		"name":"Dresseur Magma",
+		"dialog":"Ahah! Mon pokemon feu est le meilleur!",
+		"type":"trainer",
+		"hasPath":0,
+		"hasMulti":0,
+		"path":[
+		],
+		"team":[
+		{
+			"level":5,
+			"name":"Poussifeu"
 		}
 		]
 	}

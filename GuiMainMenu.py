@@ -11,7 +11,7 @@ class GuiMainMenu(GuiBase.GuiBase) :
         self.livingTime = 0;
         self.player = player;
 
-        #Image de la flÃ¨che
+        #Image de la flÃƒÂ¨che
         self.arrow_image = pg.image.load("resources/gui/ge_arrow.png");
         self.arrowCoords = (200, 300);
         self.arrowSelected = 0;
@@ -63,4 +63,5 @@ class GuiMainMenu(GuiBase.GuiBase) :
         elif index == 2 :
             game.on_terminate();
         else :
-            print("Menu indisponible");
+            self.nextStep(game);
+            game.new_game();

@@ -3,24 +3,49 @@ import GuiBase;
 
 class GuiNPCText(GuiBase.GuiBase) :
 
-    def __init__(self, text, name):
+    def __init__(self, text, name, npc):
         GuiBase.GuiBase.__init__(self, 0, 400, 800, 200);
         self.image = pg.image.load("resources/gui/npc_text.png");
         self.image.set_colorkey((255, 0, 255));
         self.text = text;
         self.name = name;
+        if npc is not None :
+            self.npc = npc;
+
+            self.multiLine = npc.hasMultiDialog;
+            if self.multiLine :
+                self.lines = npc.dialog_multi;
+                self.lines_images = [];
+        else :
+            self.multiLine = False;
+
         self.textImg = 0;
         self.livingTime = 0;
 
     def render(self, display, font):
-        if self.textImg == 0 :
-            self.textImg = font.render(self.name + " : " + self.text, 0, (0, 0, 0));
         self.image.set_colorkey((255, 0, 255));
         display.blit(self.image, (100, 400));
-        display.blit(self.textImg, (140, 440));
+
+        if self.textImg == 0 :
+            self.textImg = font.render(self.name + " : " + self.text, 0, (0, 0, 0));
+
+        if self.multiLine and len(self.lines_images) > 0 :
+            for number, image in enumerate(self.lines_images) :
+                display.blit(image, (120, 440 + (20 * number)));
+        else :
+            display.blit(self.textImg, (140, 440));
 
     def update(self, game, events, font):
         self.livingTime += 1;
+
+        if self.multiLine and len(self.lines_images) == 0 :
+            for number, line in enumerate(self.lines) :
+                print(line, number);
+                if number == 0 :
+                    self.lines_images.append(font.render(self.name + " : " + line, 0, (64, 64, 64)));
+                else :
+                    self.lines_images.append(font.render(line, 0, (64, 64, 64)));
+
         if self.livingTime >= 30 :
             for event in events :
                 if event.type == pg.KEYDOWN :

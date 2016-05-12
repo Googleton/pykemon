@@ -21,7 +21,8 @@ class World:
 
     def update(self, events, world, game):
         for e in self.entities :
-            e.update(events, world, game);
+            if type(e) is Tile : pass;
+            else : e.update(events, world, game);
 
     def render(self, display, game):
         for e in self.entities :
@@ -91,8 +92,16 @@ class World:
             new_npc = BasicNPC.BasicNPC(npcX * 16, npcY * 16);
             new_npc.dialog = npc["dialog"];
             new_npc.texture = pg.image.load("resources/" + npc["texture"]);
+            new_npc.image = new_npc.texture.subsurface(pg.Rect(0, 0, 16, 20));
+            new_npc.image.set_colorkey((115, 197, 165));
             new_npc.type = npc["type"];
             new_npc.name = npc["name"];
+            new_npc.trainerTex = npc["trainer"];
+
+            if npc["hasMulti"] == 1 :
+                new_npc.hasMultiDialog = True;
+                for line in npc["dialog_multi"] :
+                    new_npc.dialog_multi.append(line["line"]);
             if npc["hasPath"] == 1 :
                 new_npc.hasPath = True;
                 paths = npc["path"];

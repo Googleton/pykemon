@@ -19,7 +19,7 @@ class GuiBattle(GuiBase.GuiBase) :
         self.player_image.image.set_colorkey((255, 0, 228));
 
         self.opponent_image = pg.sprite.Sprite();
-        self.opponent_image.image = pg.transform.scale2x(pg.image.load("resources/gui/default_opponent.png"));
+        self.opponent_image.image = pg.transform.scale2x(pg.image.load("resources/gui/trainers/"+opponent.trainerTex));
         self.opponent_image.rect = self.opponent_image.image.get_rect();
         self.opponent_image.rect.topleft = (880, 80)
         self.opponent_image.image.set_colorkey((112, 192, 160));
@@ -155,14 +155,16 @@ class GuiBattle(GuiBase.GuiBase) :
             elif button == "Fuir" :
                 game.guiHandler.closeGui();
             elif button == "Equipe" :
-                print("Pas encore implémenté");
+                print("Pas encore implemente");
             elif button == "Inventaire" :
-                print("Pas encore implémenté");
+                print("Pas encore implemente");
         elif self.attackStep :
             attack = game.pokemonManager.getAttack(self.player_attacks[self.arrow_selected]);
             if attack != None :
                 self.updateText(self.player_pokemon.name + " attaque " + attack.name, font);
-                if not self.opponent_pokemon.dealDamage(attack.damage) :
+                bonus_damage = int((random.randrange(0, 100) / 100) * 5);
+                total_damage = attack.damage + bonus_damage;
+                if not self.opponent_pokemon.dealDamage(total_damage) :
                     self.startAnimation("player_attack");
                     self.updateStatus("player", self.player_pokemon, True, font);
                 else :
@@ -170,9 +172,7 @@ class GuiBattle(GuiBase.GuiBase) :
 
 
     def nextStep(self, game, font) :
-        print(self.step);
         if self.step == 0 :
-            print("step 0")
             self.updateText(self.opponnent.name + " : " + self.opponnent.dialog, font);
         elif self.step == 1 :
             self.updateText(self.opponnent.name + " :  " + self.opponnent.getPokemon(0).name + " je te choisis!", font)
@@ -199,6 +199,9 @@ class GuiBattle(GuiBase.GuiBase) :
             self.updateText("Le pokemon enemi est KO ! Vous gagnez ce combat!", font);
             self.selectStep = False;
             self.attackStep = False;
+            self.stepDone = True;
+            self.opponnent.beaten = True;
+            print(self.opponnent.beaten);
         elif self.step == 8 :
             game.guiHandler.closeGui();
         elif self.step == 9 :
@@ -294,8 +297,6 @@ class GuiBattle(GuiBase.GuiBase) :
                 self.currentAnimation = "None";
                 self.stepDone = True;
 
-                #self.nextStep(game, font);
-
 
     def updateStatus(self, character, pokemon, create, font) :
         if create == True :
@@ -303,6 +304,7 @@ class GuiBattle(GuiBase.GuiBase) :
         if character == "opponent" :
             self.status_opponent_text[0] = pokemon.name;
             self.status_opponent_text[1] = pokemon.level;
+            self.status_opponent_text_images = [];
             for text in self.status_opponent_text :
                 self.status_opponent_text_images.append(font.render(str(text), 0, (32, 32, 32)));
         if character == "player" :
@@ -310,6 +312,7 @@ class GuiBattle(GuiBase.GuiBase) :
             self.status_player_text[1] = pokemon.level;
             self.status_player_text[2] = pokemon.currentHealth;
             self.status_player_text[3] = pokemon.maxHealth;
+            self.status_player_text_images = [];
             for text in self.status_player_text :
                 self.status_player_text_images.append(font.render(str(text), 0, (32, 32, 32)));
 
@@ -319,11 +322,10 @@ class GuiBattle(GuiBase.GuiBase) :
         while chosen_attack is None :
             chosen_attack_number = random.randrange(0, 4);
             chosen_attack = self.opponent_pokemon.attacks[chosen_attack_number];
-        if not self.player_pokemon.dealDamage(chosen_attack.damage) :
+        if not self.player_pokemon.dealDamage(chosen_attack.damage + int((random.randrange(0, 100) / 100) * 5)) :
             self.startAnimation("opponent_attack");
             self.updateText("Le " + self.opponent_pokemon.name + " ennemi utilise " +chosen_attack.name + " !", font);
             self.updateStatus("player", self.player_pokemon, True, font);
         else:
             self.updateStatus("player", self.player_pokemon, True, font);
             self.runStep(9, game, font)
-

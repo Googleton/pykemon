@@ -7,7 +7,7 @@
 	"health": 50,
 	"attacks":[
 	{
-		"name":"Charge"
+		"name":"Frappe"
 	}
 	]
 }

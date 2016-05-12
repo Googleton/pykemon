@@ -11,6 +11,12 @@
 		"base_damage":15,
 		"critical_chance":10,
 		"type":"normal"
+	},
+	{	
+		"name":"Griffe",
+		"base_damage":15,
+		"critical_chance":10,
+		"type":"normal"
 	}
 	]
 }

@@ -35,7 +35,8 @@ class PokemonManager() :
             pokemon_file = open("resources/pokemon_data/pokemons/" + pokemon["filename"]).read();
             pokemonData = json.loads(pokemon_file);
 
-            poke = Pokemon(pokemonData["name"], pokemon["index"], pokemonData["pos_front_x"], pokemonData["pos_front_y"], pokemonData["pos_inventory_x"], pokemonData["pos_inventory_y"]);
+            poke = Pokemon(pokemonData["name"], pokemon["index"], pokemonData["pos_front_x"], pokemonData["pos_front_y"],
+                pokemonData["pos_inventory_x"], pokemonData["pos_inventory_y"]);
             poke.maxHealth = pokemonData["health"];
             poke.currentHealth = poke.maxHealth;
             poke.attacks = [];
@@ -126,6 +127,11 @@ class Pokemon() :
         else :
             self.currentHealth -= ammount;
             return False;
+
+    def updateHealth(self) :
+        for i in range(0, self.level) :
+            self.maxHealth += int(self.maxHealth / 20);
+            self.currentHealth = self.maxHealth;
 
 
 

@@ -11,6 +11,8 @@ import GuiHandler;
 import GuiMainMenu;
 import PokemonManager;
 
+import cProfile;
+
 from pygame.locals import *;
 
 
@@ -116,10 +118,15 @@ class Game:
 
 
     def save_game(self) :
+        team = [];
+        for pokemon in self.player.team :
+            pokeData = {"name":pokemon.name,"level":pokemon.level};
+            team.append(pokeData);
+
         data = {
             'playerX' : self.player.posX,
             'playerY' : self.player.posY,
-            'team' : self.player.team
+            'team' : team
         };
 
         data_as_json = json.dumps(data);
@@ -135,13 +142,16 @@ class Game:
         for pokemon in jsonData["team"] :
             new_poke = self.pokemonManager.getPokemon(pokemon["name"]);
             new_poke.level = pokemon["level"];
+            new_poke.updateHealth();
             self.player.addPokemon(new_poke);
 
     def new_game(self) :
-        self.player.posX = 64;
-        self.player.posY = 64-22;
-
-
+        self.player.posX = 432;
+        self.player.posY = 58;
+        new_poke = self.pokemonManager.getPokemon("Arcko");
+        new_poke.level = 7;
+        new_poke.updateHealth();
+        self.player.addPokemon(new_poke);
 
     def run(self):
         if self.on_init() == False :
@@ -160,4 +170,5 @@ class Game:
 
 if __name__ == '__main__' :
     game = Game();
+    #cProfile.run("game.run()");
     game.run();

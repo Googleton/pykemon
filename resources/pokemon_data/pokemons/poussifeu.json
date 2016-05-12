@@ -7,6 +7,9 @@
 	"health": 50,
 	"attacks":[
 	{
+		"name":"Griffe"
+	},
+	{
 		"name":"Charge"
 	}
 	]

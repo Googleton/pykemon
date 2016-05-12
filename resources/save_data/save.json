@@ -1,10 +1,1 @@
-{
-"playerX": 64.0,
-"playerY": 58.0,
-"team":[
-{
-	"name":"Arcko",
-	"level":10
-}
-]
-}
+{"playerX": 432.0, "playerY": 58.0, "team": [{"name": "Arcko", "level": 10}]}
