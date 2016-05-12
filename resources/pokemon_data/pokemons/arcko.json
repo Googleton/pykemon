@@ -8,6 +8,15 @@
 	"attacks":[
 	{
 		"name":"Frappe"
+	},
+	{
+		"name":"Griffe"
+	},
+	{
+		"name":"Charge"
+	},
+	{
+		"name":"Triche"
 	}
 	]
 }

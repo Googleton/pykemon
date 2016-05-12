@@ -90,9 +90,21 @@ class World:
             npcX = npc["x"];
             npcY = npc["y"];
             new_npc = BasicNPC.BasicNPC(npcX * 16, npcY * 16);
+            tile = self.tileAt(npcX*16,npcY*16);
+            if type(tile) is Tile.Tile :
+                tile.collider = True;
+                tile.occupied = True;
+
             new_npc.dialog = npc["dialog"];
             new_npc.texture = pg.image.load("resources/" + npc["texture"]);
-            new_npc.image = new_npc.texture.subsurface(pg.Rect(0, 0, 16, 20));
+            if "direction" in npc :
+                new_npc.direction = npc["direction"];
+            if "mirror" in npc :
+                new_npc.mirror = True;
+            new_npc.image = new_npc.texture.subsurface(pg.Rect(new_npc.direction*16, 0, 16, 20));
+            if new_npc.mirror :
+                new_npc.image = pg.transform.flip(new_npc.image, True, False);
+
             new_npc.image.set_colorkey((115, 197, 165));
             new_npc.type = npc["type"];
             new_npc.name = npc["name"];
@@ -109,6 +121,21 @@ class World:
                     new_npc.path.append((path["x"], path["y"]))
             if new_npc.type == "trainer" :
                 new_npc.createTeam(npc["team"], game);
+
+            if "defeat_text" in npc :
+                new_npc.defeat_text = npc["defeat_text"];
+
+            if "quest_action" in npc :
+                new_npc.quest_action = npc["quest_action"];
+
+            if "quest_involved" in npc :
+                new_npc.quest_involved = npc["quest_involved"];
+                print(new_npc.name, " is involved in quest ", new_npc.quest_involved);
+
+            if "quest_dialog" in npc :
+                new_npc.quest_dialog = npc["quest_dialog"];
+            else :
+                new_npc.quest_dialog = new_npc.dialog;
 
             self.entities.add(new_npc);
 
@@ -139,5 +166,12 @@ class World:
                     return True;
         entity.canInteract = True;
         return False;
+
+    def destroyEntity(self, entity) :
+        tile = self.tileAt(entity.rect.x,entity.rect.y);
+        if type(tile) is Tile.Tile :
+            tile.collider = False;
+            tile.occupied = False;
+        self.entities.remove(entity);
 
 

@@ -26,8 +26,7 @@ class GuiNPCText(GuiBase.GuiBase) :
         self.image.set_colorkey((255, 0, 255));
         display.blit(self.image, (100, 400));
 
-        if self.textImg == 0 :
-            self.textImg = font.render(self.name + " : " + self.text, 0, (0, 0, 0));
+
 
         if self.multiLine and len(self.lines_images) > 0 :
             for number, image in enumerate(self.lines_images) :
@@ -38,13 +37,24 @@ class GuiNPCText(GuiBase.GuiBase) :
     def update(self, game, events, font):
         self.livingTime += 1;
 
-        if self.multiLine and len(self.lines_images) == 0 :
-            for number, line in enumerate(self.lines) :
-                print(line, number);
-                if number == 0 :
-                    self.lines_images.append(font.render(self.name + " : " + line, 0, (64, 64, 64)));
-                else :
-                    self.lines_images.append(font.render(line, 0, (64, 64, 64)));
+        if self.textImg == 0 :
+            self.textImg = font.render(self.name + " : " + self.text, 0, (0, 0, 0));
+
+
+        if self.npc.quest_involved == game.player.questProgress :
+            if self.multiLine and len(self.lines_images) == 0 :
+                for number, line in enumerate(self.lines) :
+                    print(line, number);
+                    if number == 0 :
+                        self.lines_images.append(font.render(self.name + " : " + line, 0, (64, 64, 64)));
+                    else :
+                        self.lines_images.append(font.render(line, 0, (64, 64, 64)));
+            else :
+                self.textImg = font.render(self.name + " : " + self.npc.quest_dialog, 0, (0, 0, 0));
+
+        if self.npc.name == "Maman" :
+            for pokemon in game.player.team :
+                pokemon.dealDamage(-9999);
 
         if self.livingTime >= 30 :
             for event in events :
@@ -53,5 +63,13 @@ class GuiNPCText(GuiBase.GuiBase) :
                         self.nextStep(game);
 
     def nextStep(self, game) :
+        self.handleQuestProgress(game, game.player, self.npc);
         game.guiHandler.closeGui();
+
+    def handleQuestProgress(self, game, player, npc) :
+        print("Quest info : ", player.questProgress, " NPC quest involvement :" , npc.quest_involved);
+        if npc.quest_involved == player.questProgress :
+            player.questProgress += 1;
+            npc.onDefeated(player, game);
+            print("Quest progressed to stage", player.questProgress);
 

@@ -203,10 +203,15 @@ class GuiBattle(GuiBase.GuiBase) :
             self.opponnent.beaten = True;
             print(self.opponnent.beaten);
         elif self.step == 8 :
-            game.guiHandler.closeGui();
+            self.updateText(self.opponnent.name + " : " + self.opponnent.defeat_text, font);
+            self.stepDone = True;
         elif self.step == 9 :
-            self.updateText("Votre " + self.player_pokemon.name + " est KO ! Vous perdez ce combat!", font);
+            self.opponnent.onDefeated(self.player, game);
+            self.handleQuest(self.player, self.opponnent);
+            game.guiHandler.closeGui();
         elif self.step == 10 :
+            self.updateText("Votre " + self.player_pokemon.name + " est KO ! Vous perdez ce combat!", font);
+        elif self.step == 11 :
             game.guiHandler.closeGui();
 
     def runStep(self, step, game, font) :
@@ -328,4 +333,11 @@ class GuiBattle(GuiBase.GuiBase) :
             self.updateStatus("player", self.player_pokemon, True, font);
         else:
             self.updateStatus("player", self.player_pokemon, True, font);
-            self.runStep(9, game, font)
+            self.runStep(10, game, font)
+
+
+    def handleQuest(self, player, opponent) :
+        print("Quest info : ", player.questProgress, " NPC quest involvement :" , opponent.quest_involved);
+        if opponent.quest_involved == player.questProgress :
+            player.questProgress += 1;
+            print("Quest progressed to stage", player.questProgress);

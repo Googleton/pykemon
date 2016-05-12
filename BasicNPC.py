@@ -4,6 +4,7 @@ import Entity;
 import GuiNPCText;
 import GuiBattle;
 import PokemonManager;
+import Tile;
 
 class BasicNPC(Entity.Entity) :
 
@@ -14,9 +15,12 @@ class BasicNPC(Entity.Entity) :
         self.image.set_colorkey((115, 197, 165));
         self.xOffset = 0;#-1
         self.yOffset = 0;#2
+        self.coords = (x, y);
 
-        self.rect = pg.Rect(x + self.xOffset, y + self.yOffset, 16, 22);
+        self.rect = pg.Rect(x, y, 16, 22);
         self._layer = 2;
+        self.direction = 0;
+        self.mirror = False;
 
         self.dialog = "x";
         self.dialog_multi = [];
@@ -35,14 +39,31 @@ class BasicNPC(Entity.Entity) :
         self.team = [];
         self.beaten = False;
 
+        self.defeat_text = "";
+        self.defeat_action = "";
+
+        self.quest_involved = -1;
+        self.quest_action = "";
+        self.quest_dialog = "";
+
+        self.isActive = True;
+        self.world = None;
+
 
     def update(self, events, world, game):
+        if self.world is None :
+            self.world = world;
+
         if self.moving :
             if ((self.rect.x-self.xOffset)/16, (self.rect.y-self.yOffset)/16) == self.waypoint:
                 self.moving = False;
             self.moveToWaypoint();
         else :
             self.updateWaypoint()
+
+        if self.isActive == False :
+            world.destroyEntity(self);
+
 
     def moveToWaypoint(self):
         pass;
@@ -55,17 +76,16 @@ class BasicNPC(Entity.Entity) :
                     self.moving = True;
 
     def interact(self, entity, game, player):
-        print(self.dialog);
-        if self.type == "bystander" :
-            game.guiHandler.openGui(GuiNPCText.GuiNPCText(self.dialog, self.name, self));
-        elif self.type == "trainer" :
-            print(self.beaten);
-            if len(player.team) > 0 and self.beaten == False :
-                game.guiHandler.openGui(GuiBattle.GuiBattle(self.dialog, self, player));
-            elif self.beaten == True :
-                game.guiHandler.openGui(GuiNPCText.GuiNPCText("Tu m'as deja vaincu ...", self.name, None));
-            else :
-                game.guiHandler.openGui(GuiNPCText.GuiNPCText("Vous n'avez pas de pokemons pour combattre !", "Jeu", None));
+        if self.isActive :
+            if self.type == "bystander" :
+                game.guiHandler.openGui(GuiNPCText.GuiNPCText(self.dialog, self.name, self));
+            elif self.type == "trainer" :
+                if len(player.team) > 0 and self.beaten == False :
+                    game.guiHandler.openGui(GuiBattle.GuiBattle(self.dialog, self, player));
+                elif self.beaten == True :
+                    game.guiHandler.openGui(GuiNPCText.GuiNPCText("Tu m'as deja vaincu ...", self.name, None));
+                else :
+                    game.guiHandler.openGui(GuiNPCText.GuiNPCText("Vous n'avez pas de pokemons pour combattre !", "Jeu", None));
 
     def createTeam(self, team, game) :
         if self.type == "trainer" :
@@ -78,6 +98,30 @@ class BasicNPC(Entity.Entity) :
     def getPokemon(self, index) :
         if len(self.team) > 0 :
             return self.team[index];
+
+    def onDefeated(self, player, game) :
+        print("On defeated called")
+        if self.quest_action == "disappear" :
+            self.isActive = False;
+        if self.quest_action == "disappear_all" :
+            self.isActive = False;
+            for entity in self.world.entities :
+                if type(entity) is BasicNPC :
+                    if "Magma" in entity.name :
+                        self.world.destroyEntity(entity);
+        if self.quest_action == "goto_lab" :
+            tile = self.world.tileAt(self.rect.x,self.rect.y);
+            if type(tile) is Tile.Tile :
+                tile.collider = False;
+                tile.occupied = False;
+            game.fadeScreenIn(8);
+            self.rect.x = 13*16;
+            self.rect.y = 13*16;
+            tile = self.world.tileAt(self.rect.x,self.rect.y);
+            if type(tile) is Tile.Tile :
+                tile.collider = True;
+                tile.occupied = True;
+
 
 
 

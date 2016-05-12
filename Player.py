@@ -52,6 +52,9 @@ class Player(Entity.Entity) :
         #Pokemons
         self.team = []
 
+
+        self.questProgress = 0;
+
         print("Player Initialized !")
 
     def update(self, events, world, game):
@@ -78,6 +81,7 @@ class Player(Entity.Entity) :
 
 
     def interactWith(self, world, game, player):
+        print(self.rect.x/16, (self.rect.y-22)/16);
         self.canInteract = False;
         interactX = self.posX + (self.directionDict[self.anim_direction][0] * 16);
         interactY = self.posY + (self.directionDict[self.anim_direction][1] * 16) + 6;
@@ -108,13 +112,14 @@ class Player(Entity.Entity) :
             self.oldY = self.posY;
             self.newX = self.oldX + (self.velocity[0] * 16);
             self.newY = self.oldY + (self.velocity[1] * 16);
-            if world.tileAt(self.newX, self.newY+6) != False and world.tileAt(self.newX, self.newY+6).occupied == True:
+            tile = world.tileAt(self.newX, self.newY+6);
+            if tile is not None and tile.occupied == True:
                 self.posX = self.oldX;
                 self.posY = self.oldY;
                 self.moving = False;
             else :
-                if world.tileAt(self.newX, self.newY+6) != False :
-                    world.tileAt(self.newX, self.newY+6).onSteppedOn(self, game);
+                if tile is not None :
+                    tile.onSteppedOn(self, game);
         else :
             if self.movingTick > 8 :
                 self.movingTick = 0;

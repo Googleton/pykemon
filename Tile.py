@@ -21,7 +21,7 @@ class Tile(Entity.Entity) :
 
     def onSteppedOn(self, entity, game):
         if self.teleporter :
-            game.fadeScreenIn(8);
+            game.fadeScreenIn(10);
             entity.teleportAt(self.teleportX, self.teleportY);
             #game.fadeScreenOut(50);
 

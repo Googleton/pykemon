@@ -8,15 +8,33 @@
 	},
 	{
 		"name":"Frappe",
-		"base_damage":15,
-		"critical_chance":10,
+		"base_damage":18,
+		"critical_chance":8,
 		"type":"normal"
 	},
 	{	
 		"name":"Griffe",
-		"base_damage":15,
-		"critical_chance":10,
+		"base_damage":13,
+		"critical_chance":20,
 		"type":"normal"
+	},
+	{	
+		"name":"Triche",
+		"base_damage":9999,
+		"critical_chance":100,
+		"type":"normal"
+	},
+	{	
+		"name":"Pied-Flamme",
+		"base_damage":25,
+		"critical_chance":1,
+		"type":"fire"
+	},
+	{	
+		"name":"Patte-Flamme",
+		"base_damage":20,
+		"critical_chance":1,
+		"type":"fire"
 	}
 	]
 }

@@ -1,0 +1,24 @@
+PROF :  pos 19 58
+
+BOSS : pos 18 58 			---- FAIT
+PNJ 1 a 5 : 17 58 à 17 63 	---- FAIT
+PNJ 5 a 10 : 20 58 à 20 63  ---- FAIT
+
+Sousboss 1 : 18 62
+Sousboss 2 : 19 60
+
+Une fois ces npc ajoutés : finir l'histoire.
+Ajouter collisions NPC ---- FAIT
+
+
+Quest system :
+
+0 = Pas encore parlé a mère
+1 = Parlé mère, pas chercheur
+2 = Parlé chercheur, pas battu premier boss
+3 = Battu 1er, pas 2e -- FAIRE DIRSPARAITRE 1e
+4 = Battu 1er & 2e, pas 3e -- FAIRE DISPARAITRE 2e
+5 = Battu 3e  --- FAIRE DISPARAITRE LES SOUS FIFRES
+6 = Parler au prof
+7 = Parler au prof au labo
+8 = Rien, le jeu se termine au prof

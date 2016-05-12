@@ -8,6 +8,9 @@
 	"attacks":[
 	{
 		"name":"Charge"
+	},
+	{
+		"name":"Patte-Flamme"
 	}
 	]
 }

@@ -46,6 +46,7 @@ class Game:
         self.stateDict = {"pause" : 0, "world" : 1, "menu" : 2};
         self.guiHandler = GuiHandler.GuiHandler(self);
         self.pokemonManager = PokemonManager.PokemonManager(self);
+        self.load_game();
         self.world = World.World(self);
 
     def on_init(self):
@@ -58,6 +59,7 @@ class Game:
         self.fadeImage.fill((0, 0, 0));
         self.fadeImage.set_alpha(0);
         self.guiHandler.openGui(GuiMainMenu.GuiMainMenu(self));
+
 
     def on_event(self, event):
         if event.type == QUIT or (event.type == K_ESCAPE) :
@@ -126,7 +128,8 @@ class Game:
         data = {
             'playerX' : self.player.posX,
             'playerY' : self.player.posY,
-            'team' : team
+            'team' : team,
+            'quest_progress' : self.player.questProgress
         };
 
         data_as_json = json.dumps(data);
@@ -139,6 +142,7 @@ class Game:
         jsonData = json.loads(loaded_data);
         self.player.posX = jsonData['playerX'];
         self.player.posY = jsonData['playerY'];
+        self.player.questProgress = jsonData['quest_progress'];
         for pokemon in jsonData["team"] :
             new_poke = self.pokemonManager.getPokemon(pokemon["name"]);
             new_poke.level = pokemon["level"];
@@ -148,6 +152,8 @@ class Game:
     def new_game(self) :
         self.player.posX = 432;
         self.player.posY = 58;
+        self.player.team = [];
+        self.player.questProgress = 0;
         new_poke = self.pokemonManager.getPokemon("Arcko");
         new_poke.level = 7;
         new_poke.updateHealth();
@@ -170,5 +176,4 @@ class Game:
 
 if __name__ == '__main__' :
     game = Game();
-    #cProfile.run("game.run()");
     game.run();

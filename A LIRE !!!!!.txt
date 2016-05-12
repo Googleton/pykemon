@@ -1,0 +1,18 @@
+1. Lancer le jeu
+
+Pour lancer le jeu, vous devez executer le fichier Game.py
+
+
+2. En cas de problème :
+
+Envoyer un e-mail au plus vite a cette adresse : gugo42800@gmail.com
+
+3. Comment jouer ?
+
+Les flèches permettent de se déplacer et de bouger le curseur dans les menus.
+La barre d'espace permet de parler a un personnage ou de valider son choix dans un menu.
+La touche "Echap" ouvre le menu de pause.
+
+Autre information pratique :
+
+Si votre pokémon n'as plus beaucoup de vie, n'hésitez pas a retourner parler au personnage "Maman"; Elle soigne les pokémons gratuitement! ( Et efficacement )

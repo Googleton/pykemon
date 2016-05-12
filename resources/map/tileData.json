@@ -55,7 +55,10 @@
 		"y":15,
 		"texture":"npc_4.png",
 		"trainer":"trainer_3.png",
-		"dialog":"Bonjour ! Tu as enfin ton premier pokemon!",
+		"dialog":"Je n'ai pas encore fini mon dossier de projet...",
+		"quest_action":"talk",
+		"quest_involved":1,
+		"quest_dialog":"Bonjour! Tu as enfin ton premier pokemon!",
 		"hasMulti":1,
 		"dialog_multi":[
 			{
@@ -75,14 +78,6 @@
 		"name":"Chercheur",
 		"type":"bystander",
 		"path":[
-		{
-			"x":12,
-			"y":15
-		},
-		{
-			"x":20,
-			"y":14
-		}
 		]
 	},
 	{
@@ -90,7 +85,10 @@
 		"y":15,
 		"texture":"npc_5.png",
 		"trainer":"trainer_3.png",
-		"dialog":"Hey! Tu devrais aller voir au labo, le prof. te cherche...",
+		"dialog":"Hey! Viens me voir si tes pokemon sont blessés!",
+		"quest_dialog":"Hey! Tu devrais aller voir au labo, le prof. te cherche...",
+		"quest_action":"progress",
+		"quest_involved":0,
 		"hasMulti":0,
 		"hasPath":1,
 		"name":"Maman",
@@ -130,12 +128,16 @@
 		]
 	},
 	{
-		"x":16,
-		"y":52,
+		"x":18,
+		"y":59,
 		"texture":"npc_2.png",
 		"trainer":"trainer_2.png",
-		"name":"Dresseur Magma",
-		"dialog":"Ahah! Mon pokemon feu est le meilleur!",
+		"name":"Capitaine Magma",
+		"dialog":"Ahah! Le prof. est a nous!",
+		"defeat_text":"La Team Magma reviendra !!!",
+		"quest_action":"disappear_all",
+		"quest_involved":4,
+		"quest_dialog":"Grr...",
 		"type":"trainer",
 		"hasPath":0,
 		"hasMulti":0,
@@ -143,9 +145,246 @@
 		],
 		"team":[
 		{
-			"level":5,
+			"level":14,
+			"name":"Brasegali"
+		}
+		]
+	},
+	{
+		"x":17,
+		"y":58,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"mirror":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":17,
+		"y":59,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"mirror":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	}
+	,
+	{
+		"x":17,
+		"y":60,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"mirror":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":17,
+		"y":61,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"mirror":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":17,
+		"y":62,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"mirror":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":17,
+		"y":63,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"mirror":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":19,
+		"y":58,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":19,
+		"y":59,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":19,
+		"y":60,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":19,
+		"y":61,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":19,
+		"y":62,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":19,
+		"y":63,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"direction":2,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":18,
+		"y":63,
+		"texture":"npc_6.png",
+		"trainer":"trainer_6.png",
+		"name":"Sous-Lieutenant Magma",
+		"dialog":"Tu pense pouvoir récupérer le prof?",
+		"defeat_text":"Le Lieutenant est bien plus fort!",
+		"quest_action":"disappear",
+		"quest_involved":2,
+		"quest_dialog":"Ce texte n'est pas censé s'afficher",
+		"type":"trainer",
+		"hasPath":0,
+		"hasMulti":0,
+		"path":[
+		],
+		"team":[
+		{
+			"level":6,
 			"name":"Poussifeu"
 		}
+		]
+	},
+	{
+		"x":18,
+		"y":61,
+		"texture":"npc_6.png",
+		"trainer":"trainer_7.png",
+		"name":"Lieutenant Magma",
+		"dialog":"Jamais tu n'attendra le capitaine!",
+		"defeat_text":"Mais ... tu triche !",
+		"quest_action":"disappear",
+		"quest_involved":3,
+		"quest_dialog":"Ce texte n'est pas censé s'afficher",
+		"type":"trainer",
+		"hasPath":0,
+		"hasMulti":0,
+		"path":[
+		],
+		"team":[
+		{
+			"level":10,
+			"name":"Galifeu"
+		}
+		]
+	},
+	{
+		"x":18,
+		"y":58,
+		"texture":"npc_7.png",
+		"trainer":"trainer_3.png",
+		"dialog":"Hey! Merci d'avoir joué a Pykémon! C'est tout pour l'instant",
+		"quest_dialog":"Merci de m'avoir sauvé! On se revoit au labo",
+		"quest_action":"goto_lab",
+		"quest_involved":5,
+		"hasMulti":0,
+		"hasPath":1,
+		"name":"Prof. Seko",
+		"type":"bystander",
+		"path":[
 		]
 	}
 	]

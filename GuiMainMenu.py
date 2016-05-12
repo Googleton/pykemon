@@ -1,6 +1,7 @@
 import pygame as pg;
 import sys;
 import GuiBase;
+import BasicNPC;
 
 class GuiMainMenu(GuiBase.GuiBase) :
 
@@ -11,7 +12,7 @@ class GuiMainMenu(GuiBase.GuiBase) :
         self.livingTime = 0;
         self.player = player;
 
-        #Image de la flÃƒÂ¨che
+        #Image de la flÃƒÆ’Ã‚Â¨che
         self.arrow_image = pg.image.load("resources/gui/ge_arrow.png");
         self.arrowCoords = (200, 300);
         self.arrowSelected = 0;
@@ -60,6 +61,11 @@ class GuiMainMenu(GuiBase.GuiBase) :
         if index == 0 :
             self.nextStep(game);
             game.load_game();
+            if game.player.questProgress >= 5 :
+                for entity in game.world.entities :
+                    if type(entity) is BasicNPC.BasicNPC :
+                        if "Magma" in entity.name :
+                            game.world.destroyEntity(entity);
         elif index == 2 :
             game.on_terminate();
         else :
