@@ -61,11 +61,12 @@ class GuiTeam(GuiBase.GuiBase) :
                         game.guiHandler.openGui(self.guiBattle);
                     elif self.selectMode :
                         if self.player.team[self.selected] == self.guiBattle.player_pokemon :
-                            game.guiHandler.openGui(self.guiBattle);
+                            if self.player.team[self.selected].currentHealth > 0 :
+                                game.guiHandler.openGui(self.guiBattle);
                         else :
                             self.guiBattle.player_pokemon = self.player.team[self.selected];
                             game.guiHandler.openGui(self.guiBattle);
-                            self.guiBattle.updateStatus("player", self.guiBattle.player_pokemon, True, font)
+                            self.guiBattle.updateStatus("player", self.guiBattle.player_pokemon, True, font);
                     elif self.selected == len(self.player.team) :
                         game.guiHandler.closeGui();
 

@@ -209,3 +209,8 @@ class Player(Entity.Entity) :
            if pokemon.currentHealth > 0 :
                return True;
         return False;
+
+    def getFirstPokemonAlive(self):
+        for pokemon in self.team :
+            if pokemon.currentHealth > 0:
+                return pokemon;

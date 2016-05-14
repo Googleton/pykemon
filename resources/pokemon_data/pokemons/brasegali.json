@@ -5,12 +5,16 @@
 	"pos_inventory_x": 952,
 	"pos_inventory_y": 96,
 	"health": 50,
+	"base_health":80,
+	"base_attack":120,
+	"base_defense":70,
+	"type":"fire",
 	"attacks":[
 	{
 		"name":"Charge"
 	},
 	{
-		"name":"Pied-Flamme"
+		"name":"Poing de Feu"
 	}
 	]
 }

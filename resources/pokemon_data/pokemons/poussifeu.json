@@ -5,12 +5,16 @@
 	"pos_inventory_x": 296,
 	"pos_inventory_y": 96,
 	"health": 50,
+	"base_health":45,
+	"base_attack":60,
+	"base_defense":40,
+	"type":"fire",
 	"attacks":[
 	{
 		"name":"Griffe"
 	},
 	{
-		"name":"Patte-Flamme"
+		"name":"Flammeche"
 	}
 	]
 }

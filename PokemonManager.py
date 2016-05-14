@@ -1,8 +1,8 @@
 ﻿import pygame as pg;
 import json;
 
-pokemon_sheet = pg.image.load("resources/pokemon_data/pokemon_sheet.png").convert();
-poke_image = pg.transform.scale(pokemon_sheet, );
+pokemon_sheet = pg.image.load("resources/pokemon_data/pokemon_sheet.png");
+poke_image = pg.transform.scale2x(pokemon_sheet);
 
 class PokemonManager() :
 
@@ -26,7 +26,7 @@ class PokemonManager() :
         attacks = attacksData["attacks"];
         for attack in attacks :
             new_attack = Attack(attack["name"], attack["base_damage"]);
-            new_attack.element = attack["type"];
+            new_attack.type = attack["type"];
             new_attack.critical_chance = attack["critical_chance"];
             self.attacks_list.append(new_attack);
 
@@ -40,6 +40,10 @@ class PokemonManager() :
             poke.maxHealth = pokemonData["health"];
             poke.currentHealth = poke.maxHealth;
             poke.attacks = [];
+            poke.base_health = pokemonData["base_health"];
+            poke.base_attack = pokemonData["base_attack"];
+            poke.base_defense = pokemonData["base_defense"];
+            poke.type = pokemonData["type"];
             for attack in pokemonData["attacks"] :
                 poke_attack = self.getAttack(attack["name"]);
                 poke.attacks.append(poke_attack);
@@ -47,6 +51,22 @@ class PokemonManager() :
                 poke.attacks.append(None);
             self.pokemon_list.append(poke);
 
+
+    def getEffectiveModifier(self, type1, type2):
+        if type1 == "fire" and type2 == "water" :
+            return 0.75;
+        elif type1 == "fire" and type2 == "grass" :
+            return 1.25;
+        elif type1 == "water" and type2 == "fire" :
+            return 1.25;
+        elif type1 == "water" and type2 == "grass" :
+            return 0.75;
+        elif type1 == "grass" and type2 == "water" :
+            return 1.25;
+        elif type1 == "grass" and type2 == "fire" :
+            return 0.75;
+        else :
+            return 1.0;
 
 
     def getPokemon(self, name) :
@@ -64,7 +84,7 @@ class Attack() :
 
     name = "Charge";
     damage = 5;
-    element = "normal";
+    type = "normal";
     critical_chance = 0;
 
     def __init__(self, name, damage) :
@@ -84,6 +104,15 @@ class Pokemon() :
 
     maxHealth = 1;
     currentHealth = maxHealth;
+
+    base_health = 10;
+    base_defense = 10;
+    base_attack = 10;
+
+    currentAttack = 10;
+    currentDefense = 10;
+
+    type = "normal";
 
     frontX = 0;
     frontY = 0;
@@ -129,11 +158,11 @@ class Pokemon() :
             return False;
 
     def updateHealth(self) :
-        self.maxHealth = 50;
-        for i in range(0, self.level) :
-            self.maxHealth += int(self.maxHealth / 20);
-            self.currentHealth = self.maxHealth;
+        self.maxHealth = int(((2 * self.base_health * self.level) / 50) + self.level + 10);
+        self.currentHealth = self.maxHealth;
 
-
+    def updateStats(self):
+        self.currentAttack =  int(((2 * self.base_attack * self.level) / 50) + 5);
+        self.currentDefense = int(((2 * self.base_defense * self.level) / 50) + 5);
 
 

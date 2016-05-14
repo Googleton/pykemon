@@ -2,19 +2,19 @@
 	"attacks":[
 	{
 		"name":"Charge",
-		"base_damage":15,
+		"base_damage":40,
 		"critical_chance":10,
 		"type":"normal"
 	},
 	{
 		"name":"Frappe",
-		"base_damage":18,
+		"base_damage":50,
 		"critical_chance":8,
 		"type":"normal"
 	},
 	{	
 		"name":"Griffe",
-		"base_damage":13,
+		"base_damage":40,
 		"critical_chance":20,
 		"type":"normal"
 	},
@@ -26,7 +26,7 @@
 	},
 	{	
 		"name":"Pied-Flamme",
-		"base_damage":25,
+		"base_damage":40,
 		"critical_chance":1,
 		"type":"fire"
 	},
@@ -34,6 +34,18 @@
 		"name":"Patte-Flamme",
 		"base_damage":20,
 		"critical_chance":1,
+		"type":"fire"
+	},
+	{
+		"name":"Poing de Feu",
+		"base_damage":75,
+		"critical_chance":15,
+		"type":"fire"
+	},
+	{
+		"name":"Flammeche",
+		"base_damage":40,
+		"critical_chance":25,
 		"type":"fire"
 	}
 	]

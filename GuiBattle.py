@@ -125,7 +125,7 @@ class GuiBattle(GuiBase.GuiBase) :
             for event in events :
                 if event.type == pg.KEYDOWN :
                     if event.key == pg.K_SPACE :
-                        if self.stepDone :
+                        if self.stepDone and not self.selectStep and not self.attackStep :
                             self.nextStep(game, font);
                             self.step += 1;
                         elif self.selectStep or self.attackStep :
@@ -163,8 +163,8 @@ class GuiBattle(GuiBase.GuiBase) :
             attack = game.pokemonManager.getAttack(self.player_attacks[self.arrow_selected]);
             if attack != None :
                 self.updateText(self.player_pokemon.name + " attaque " + attack.name, font);
-                bonus_damage = int((random.randrange(0, 100) / 100) * 5);
-                total_damage = attack.damage + bonus_damage;
+                modifier = self.generateModifier(self.player_pokemon, self.opponent_pokemon, attack, game);
+                total_damage = int((((2 * self.player_pokemon.level + 10) / 125) * (self.player_pokemon.currentAttack / self.opponent_pokemon.currentDefense) * attack.damage + 2) * modifier);
                 if not self.opponent_pokemon.dealDamage(total_damage) :
                     self.startAnimation("player_attack");
                     self.updateStatus("player", self.player_pokemon, True, font);
@@ -183,7 +183,7 @@ class GuiBattle(GuiBase.GuiBase) :
             self.stepDone = False;
         elif self.step == 3 :
             self.startAnimation("player_exit");
-            self.updateText("Joueur : " + self.player.getPokemon(0).name + ", a toi de jouer !", font);
+            self.updateText("Joueur : " + self.player.getFirstPokemonAlive() + ", a toi de jouer !", font);
             self.stepDone = False;
         elif self.step == 4 :
             self.selectStep = True;
@@ -194,6 +194,7 @@ class GuiBattle(GuiBase.GuiBase) :
             self.opponentAttack(font, game);
         elif self.step == 6 :
             if self.opponent_pokemon.currentHealth > 0 :
+                self.step = 4;
                 self.runStep(4, game, font);
             else :
                 self.nextStep(game, font);
@@ -215,6 +216,14 @@ class GuiBattle(GuiBase.GuiBase) :
             self.updateText("Votre " + self.player_pokemon.name + " est KO ! Vous perdez ce combat!", font);
         elif self.step == 11 :
             game.guiHandler.closeGui();
+        elif self.step == 101:
+            self.updateStatus("player", self.player_pokemon, True, font);
+            self.updateText("Votre " + self.player_pokemon.name + " est KO!", font);
+            self.stepDone = True;
+        elif self.step == 102 :
+            game.guiHandler.openGui(GuiTeam.GuiTeam(self.player, self));
+            self.updateStatus("player", self.player_pokemon, True, font);
+            self.step = 4;
 
     def runStep(self, step, game, font) :
         self.step = step;
@@ -270,7 +279,7 @@ class GuiBattle(GuiBase.GuiBase) :
             if self.animationTimer <= 40 :
                 self.player_image.image.set_alpha(MathUtils.lerp(255, 0, self.animationTimer/40));
             if self.animationTimer == 41 :
-                self.player_pokemon = self.player.getPokemon(0);
+                self.player_pokemon = self.player.getFirstPokemonAlive();
             if self.animationTimer > 41 :
                 self.animationActive = False;
                 self.animationTimer = 0;
@@ -301,6 +310,8 @@ class GuiBattle(GuiBase.GuiBase) :
                 self.animationActive = False;
                 self.animationTimer = 0;
                 self.currentAnimation = "None";
+                self.selectStep = False;
+                self.attackStep = False;
                 self.stepDone = True;
 
 
@@ -328,14 +339,17 @@ class GuiBattle(GuiBase.GuiBase) :
         while chosen_attack is None :
             chosen_attack_number = random.randrange(0, 4);
             chosen_attack = self.opponent_pokemon.attacks[chosen_attack_number];
-        if not self.player_pokemon.dealDamage(chosen_attack.damage + int((random.randrange(0, 100) / 100) * 5)) :
+        modifier = self.generateModifier(self.opponent_pokemon, self.player_pokemon, chosen_attack, game);
+        total_damage = int((((2 * self.opponent_pokemon.level + 10) / 125) * (self.opponent_pokemon.currentAttack / self.player_pokemon.currentDefense) * chosen_attack.damage + 2) * modifier);
+        if not self.player_pokemon.dealDamage(total_damage) :
             self.startAnimation("opponent_attack");
             self.updateText("Le " + self.opponent_pokemon.name + " ennemi utilise " +chosen_attack.name + " !", font);
             self.updateStatus("player", self.player_pokemon, True, font);
         else:
             if self.player.stillHasPokemonAlive():
-                game.guiHandler.openGui(GuiTeam.GuiTeam(self.player, self));
-                self.updateStatus("player", self.player_pokemon, True, font);
+                #game.guiHandler.openGui(GuiTeam.GuiTeam(self.player, self));
+                #self.updateStatus("player", self.player_pokemon, True, font);
+                self.runStep(101, game, font);
             else :
                 self.updateStatus("player", self.player_pokemon, True, font);
                 self.runStep(10, game, font)
@@ -346,3 +360,12 @@ class GuiBattle(GuiBase.GuiBase) :
         if opponent.quest_involved == player.questProgress :
             player.questProgress += 1;
             print("Quest progressed to stage", player.questProgress);
+
+    def generateModifier(self, attacker, opponent, attack, game):
+        STAB = 1;
+        if attacker.type == attack.type :
+            STAB = 1.5;
+        typeMod = game.pokemonManager.getEffectiveModifier(attacker.type, opponent.type);
+        randomMod = round(random.uniform(0.85, 1.0), 2);
+
+        return STAB * typeMod * randomMod;

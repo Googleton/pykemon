@@ -155,6 +155,7 @@ class Game:
             new_poke = self.pokemonManager.getPokemon(pokemon["name"]);
             new_poke.level = pokemon["level"];
             new_poke.updateHealth();
+            new_poke.updateStats();
             self.player.addPokemon(new_poke);
 
     def new_game(self) :
@@ -165,6 +166,7 @@ class Game:
         new_poke = self.pokemonManager.getPokemon("Arcko");
         new_poke.level = 7;
         new_poke.updateHealth();
+        new_poke.updateStats();
         self.player.addPokemon(new_poke);
 
     def run(self):
