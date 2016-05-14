@@ -1,6 +1,7 @@
 import pygame as pg;
 import sys;
 import GuiBase;
+import GuiTeam;
 
 class GuiPauseMenu(GuiBase.GuiBase) :
 
@@ -62,5 +63,7 @@ class GuiPauseMenu(GuiBase.GuiBase) :
             game.save_game();
         elif index == 5 :
             game.on_terminate();
+        elif index == 0 :
+            game.guiHandler.openGui(GuiTeam.GuiTeam(self.player, None));
         else :
             print("Menu indisponible");

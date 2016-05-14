@@ -5,8 +5,8 @@ import BasicNPC;
 
 class World:
 
-    img_bg = pg.image.load("resources/map/map.png");
-    tileset_image = pg.image.load("resources/tile/tileset.png");
+    #img_bg = pg.image.load("resources/map/map.png").convert();
+    #tileset_image = pg.image.load("resources/tile/tileset.png");
     entities = pg.sprite.LayeredUpdates();
     tiles = [];
     width, height = 20, 20;
@@ -14,7 +14,7 @@ class World:
     def __init__(self, game):
         self.all_tiles = {};
         self.randomNumberDebug = 5;
-        self.tileset_image = pg.image.load("resources/tile/tileset.png");
+        self.tileset_image = pg.image.load("resources/tile/tileset.png").convert_alpha();
 
         self.loadWorld(game);
         print("World Initialized !");

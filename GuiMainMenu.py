@@ -1,7 +1,8 @@
-import pygame as pg;
+﻿import pygame as pg;
 import sys;
 import GuiBase;
 import BasicNPC;
+import Tile;
 
 class GuiMainMenu(GuiBase.GuiBase) :
 
@@ -12,7 +13,7 @@ class GuiMainMenu(GuiBase.GuiBase) :
         self.livingTime = 0;
         self.player = player;
 
-        #Image de la flÃƒÆ’Ã‚Â¨che
+        #Image de la fleche
         self.arrow_image = pg.image.load("resources/gui/ge_arrow.png");
         self.arrowCoords = (200, 300);
         self.arrowSelected = 0;
@@ -66,6 +67,20 @@ class GuiMainMenu(GuiBase.GuiBase) :
                     if type(entity) is BasicNPC.BasicNPC :
                         if "Magma" in entity.name :
                             game.world.destroyEntity(entity);
+            if game.player.questProgress >= 6 :
+                for entity in game.world.entities :
+                    if type(entity) is BasicNPC.BasicNPC :
+                        if "Prof. Seko" in entity.name :
+                            tile = game.world.tileAt(entity.rect.x,entity.rect.y);
+                            if type(tile) is Tile.Tile :
+                                tile.collider = False;
+                                tile.occupied = False;
+                            entity.rect.x = 13*16;
+                            entity.rect.y = 13*16;
+                            tile = game.world.tileAt(entity.rect.x,entity.rect.y);
+                            if type(tile) is Tile.Tile :
+                                tile.collider = True;
+                                tile.occupied = True;
         elif index == 2 :
             game.on_terminate();
         else :

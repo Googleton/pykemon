@@ -47,6 +47,36 @@
 		"y":1,
 		"teleX":28,
 		"teleY":14
+	},
+	{
+		"x":25,
+		"y":77,
+		"teleX":39,
+		"teleY":19
+	},
+	{
+		"x":39,
+		"y":20,
+		"teleX":25,
+		"teleY":78
+	},
+	{
+		"x":40,
+		"y":20,
+		"teleX":25,
+		"teleY":78
+	},
+	{
+		"x":40,
+		"y":13,
+		"teleX":40,
+		"teleY":2
+	},
+	{
+		"x":40,
+		"y":1,
+		"teleX":40,
+		"teleY":14
 	}
 ],
 "npc":[
@@ -327,6 +357,45 @@
 	},
 	{
 		"x":18,
+		"y":57,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":17,
+		"y":57,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":19,
+		"y":57,
+		"texture":"npc_6.png",
+		"trainer":"trainer_3.png",
+		"dialog":"...",
+		"hasMulti":0,
+		"hasPath":1,
+		"name":"Sous fifre Magma",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":18,
 		"y":63,
 		"texture":"npc_6.png",
 		"trainer":"trainer_6.png",
@@ -383,6 +452,19 @@
 		"hasMulti":0,
 		"hasPath":1,
 		"name":"Prof. Seko",
+		"type":"bystander",
+		"path":[
+		]
+	},
+	{
+		"x":42,
+		"y":17,
+		"texture":"npc_3.png",
+		"trainer":"trainer_3.png",
+		"dialog":"Bonjour! Mais que faites-vous chez moi ?!",
+		"hasMulti":0,
+		"hasPath":1,
+		"name":"Louis",
 		"type":"bystander",
 		"path":[
 		]

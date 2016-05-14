@@ -1,3 +1,6 @@
+﻿# -*- coding: utf-8 -*-
+
+
 import sys;
 import pygame as pg;
 import json;
@@ -19,7 +22,7 @@ from pygame.locals import *;
 def simple_camera(camera, target_rect) :
     l, t, _, _ = target_rect;
     _, _, w, h = camera;
-    return Rect(-l+400, -t+300, 400, 300);
+    return Rect(-l+400, -t+300, 800, 600);
 
 
 class Game:
@@ -47,12 +50,13 @@ class Game:
         self.guiHandler = GuiHandler.GuiHandler(self);
         self.pokemonManager = PokemonManager.PokemonManager(self);
         self.load_game();
-        self.world = World.World(self);
+
 
     def on_init(self):
         pg.init();
-        self.world.entities.add(self.player);
         self._displaySurface = pg.display.set_mode(self.size, self._flags);
+        self.world = World.World(self);
+        self.world.entities.add(self.player);
         pg.display.set_caption("Projet ISN - Pykemon");
         pg.font.init();
         self._running = True;
@@ -84,13 +88,16 @@ class Game:
         self.world.render(self._displaySurface, self);
         self.camera.update(self.player);
 
-        image = pg.transform.scale2x(self._displaySurface);
-        if self.player.zoomEnabled == True :
-            self._displaySurface.blit(image, (-self._width/2, -self._height/2));
 
+        if self.player.zoomEnabled == True :
+            #image = pg.transform.scale2x(self._displaySurface);
+            image = pg.transform.scale(self._displaySurface, (1600, 1200));
+            self._displaySurface.blit(image, (-self._width/2, -self._height/2));
         self._displaySurface.blit(self.fadeImage, (0, 0));
         self.guiHandler.render(self._displaySurface);
+        #pg.display.update(image);
         pg.display.flip();
+        #pg.display.set_caption("Pykemon - FPS : " + str(self._clock.get_fps()));
 
     def fadeScreenIn(self, fadeTime) :
         self.fadeIn = True;
@@ -143,6 +150,7 @@ class Game:
         self.player.posX = jsonData['playerX'];
         self.player.posY = jsonData['playerY'];
         self.player.questProgress = jsonData['quest_progress'];
+        self.player.team = [];
         for pokemon in jsonData["team"] :
             new_poke = self.pokemonManager.getPokemon(pokemon["name"]);
             new_poke.level = pokemon["level"];
@@ -177,3 +185,4 @@ class Game:
 if __name__ == '__main__' :
     game = Game();
     game.run();
+    #cProfile.run('game.run()');

@@ -1,4 +1,4 @@
-import pygame as pg;
+﻿import pygame as pg;
 import Entity;
 import Tile;
 import MathUtils;
@@ -50,7 +50,7 @@ class Player(Entity.Entity) :
         self.directionDict = {0: [0, 1], 1: [0, -1], 2: [-1, 0], 3: [1, 0]};
 
         #Pokemons
-        self.team = []
+        self.team = [];
 
 
         self.questProgress = 0;
@@ -81,7 +81,7 @@ class Player(Entity.Entity) :
 
 
     def interactWith(self, world, game, player):
-        print(self.rect.x/16, (self.rect.y-22)/16);
+        print(self.rect.x/16, (self.rect.y+6)/16);
         self.canInteract = False;
         interactX = self.posX + (self.directionDict[self.anim_direction][0] * 16);
         interactY = self.posY + (self.directionDict[self.anim_direction][1] * 16) + 6;
@@ -203,3 +203,9 @@ class Player(Entity.Entity) :
     def getPokemon(self, index) :
         if len(self.team) > 0 :
             return self.team[index];
+
+    def stillHasPokemonAlive(self):
+        for pokemon in self.team :
+           if pokemon.currentHealth > 0 :
+               return True;
+        return False;

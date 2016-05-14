@@ -1,6 +1,7 @@
 import pygame as pg;
 
 class Camera(object) :
+
     def __init__(self, camera_func, width, height):
         self.camera_func = camera_func
         self.state = pg.Rect(0, 0, width, height)

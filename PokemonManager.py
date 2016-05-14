@@ -1,8 +1,8 @@
-import pygame as pg;
+﻿import pygame as pg;
 import json;
 
-pokemon_sheet = pg.image.load("resources/pokemon_data/pokemon_sheet.png");
-poke_image = pg.transform.scale2x(pokemon_sheet);
+pokemon_sheet = pg.image.load("resources/pokemon_data/pokemon_sheet.png").convert();
+poke_image = pg.transform.scale(pokemon_sheet, );
 
 class PokemonManager() :
 
@@ -129,6 +129,7 @@ class Pokemon() :
             return False;
 
     def updateHealth(self) :
+        self.maxHealth = 50;
         for i in range(0, self.level) :
             self.maxHealth += int(self.maxHealth / 20);
             self.currentHealth = self.maxHealth;

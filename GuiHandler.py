@@ -1,4 +1,4 @@
-import pygame as pg;
+﻿import pygame as pg;
 
 class GuiHandler :
 
@@ -9,6 +9,7 @@ class GuiHandler :
         self.currentGui = 0;
         pg.font.init();
         self.font = pg.font.Font("resources/gui/rusa.ttf", 19);
+        self.font.set_bold(True);
 
     def openGui(self, gui) :
         self.currentGui = gui;

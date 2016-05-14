@@ -1,7 +1,8 @@
-import pygame as pg;
+﻿import pygame as pg;
 import random;
 import GuiBase;
 import MathUtils;
+import GuiTeam;
 
 class GuiBattle(GuiBase.GuiBase) :
 
@@ -90,7 +91,7 @@ class GuiBattle(GuiBase.GuiBase) :
             display.blit(self.status_opponent, (170, 100));
             display.blit(self.status_opponent_text_images[0], (180, 105));
             display.blit(self.status_opponent_text_images[1], (332, 105));
-            pg.draw.rect(display, (20, 220, 20), (249, 134, (self.opponent_pokemon.currentHealth / self.opponent_pokemon.maxHealth ) * 95, 4));
+            pg.draw.rect(display, (112, 248, 168), (249, 134, (self.opponent_pokemon.currentHealth / self.opponent_pokemon.maxHealth ) * 95, 4));
 
             self.status_player.set_colorkey((255, 0, 255));
             display.blit(self.status_player, (430, 220));
@@ -98,7 +99,7 @@ class GuiBattle(GuiBase.GuiBase) :
             display.blit(self.status_player_text_images[1], (607, 225));
             display.blit(self.status_player_text_images[2], (553, 261));
             display.blit(self.status_player_text_images[3], (587, 261));
-            pg.draw.rect(display, (20, 220, 20), (524, 254, (self.player_pokemon.currentHealth / self.player_pokemon.maxHealth ) * 95, 4));
+            pg.draw.rect(display, (112, 248, 168), (524, 254, (self.player_pokemon.currentHealth / self.player_pokemon.maxHealth ) * 95, 4));
 
         if self.selectStep or self.attackStep :
             display.blit(self.button_images[0], (200, 350));
@@ -155,7 +156,7 @@ class GuiBattle(GuiBase.GuiBase) :
             elif button == "Fuir" :
                 game.guiHandler.closeGui();
             elif button == "Equipe" :
-                print("Pas encore implemente");
+                game.guiHandler.openGui(GuiTeam.GuiTeam(self.player, self));
             elif button == "Inventaire" :
                 print("Pas encore implemente");
         elif self.attackStep :
@@ -172,6 +173,7 @@ class GuiBattle(GuiBase.GuiBase) :
 
 
     def nextStep(self, game, font) :
+        print(self.step);
         if self.step == 0 :
             self.updateText(self.opponnent.name + " : " + self.opponnent.dialog, font);
         elif self.step == 1 :
@@ -216,7 +218,6 @@ class GuiBattle(GuiBase.GuiBase) :
 
     def runStep(self, step, game, font) :
         self.step = step;
-        print(self.step)
         self.nextStep(game, font);
 
     def startSelectStep(self, font) :
@@ -332,8 +333,12 @@ class GuiBattle(GuiBase.GuiBase) :
             self.updateText("Le " + self.opponent_pokemon.name + " ennemi utilise " +chosen_attack.name + " !", font);
             self.updateStatus("player", self.player_pokemon, True, font);
         else:
-            self.updateStatus("player", self.player_pokemon, True, font);
-            self.runStep(10, game, font)
+            if self.player.stillHasPokemonAlive():
+                game.guiHandler.openGui(GuiTeam.GuiTeam(self.player, self));
+                self.updateStatus("player", self.player_pokemon, True, font);
+            else :
+                self.updateStatus("player", self.player_pokemon, True, font);
+                self.runStep(10, game, font)
 
 
     def handleQuest(self, player, opponent) :
